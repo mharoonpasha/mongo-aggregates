@@ -31,7 +31,8 @@ activeUsers: 516
 [
     {
         $group: {
-            _id: null,
+            // _id: null,
+            _id: "$gender",
             averageAge: {
                 $avg: "$age",
             }
