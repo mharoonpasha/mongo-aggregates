@@ -376,5 +376,3 @@ genre: string
     }
 ]
 ```
-
-**Output**
