@@ -141,3 +141,49 @@ count: 507
     },
 ]
 ```
+
+## 5. What is the average number of tags per user
+
+### Fields - tags: [string]
+
+**Option - 1**
+
+```
+[
+    {
+        $unwind: "$tags"
+    },
+    {
+        $group: {
+            _id: "$_id",
+            numberOfTags: {$sum: 1},
+        },
+    },
+    {
+        $group: {
+            _id: null,
+            averageNumberOfTags: {$avg: "$numberOfTags"}
+        }
+    }
+]
+```
+
+**Option - 2**
+
+```
+[
+    {
+        $addFields: {
+            numberOfTags: {
+                $size: {$ifNull: ["$tags", []]}
+            }
+        }
+    },
+    {
+        $group: {
+            _id: null,
+            averageNumberOfTags: {$avg: "$numberOfTags"}
+        }
+    }
+]
+```
